@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>The Matching Math Game!</title>
+<link rel="stylesheet" type="text/css" href="matchstyle.css" />
+<script type="text/javascript" src="matchjs.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+</head>
+
+<body onload="fillQAndA()">
+<div class="sidebar">
+
+<ul id="main_menu"> 
+	<li id="formtitle">GAME:</li>
+	<li><form action="" ><input type="button" onclick="window.open('instructions.html')" value="Intructions"/></form></li>
+	<li><form action=""><input type="button" onclick="fillTable()" value="PLAY!"/></form></li>
+	<li><form action=""><input type="button" onclick="window.location.reload()" value="Reset Board"/></form></li>
+</ul>
+</div>
+
+
+<h1 id="mm"><img src="images/matching_math.png" alt="Matching Math"/></h1>
+
+<div class="table_wrapper">
+<table id="match_table" border="0"  width="650">
+<tr>
+      <td class="" onclick="compareElem(this);" id="0" width="70" height="125"></td>
+      <td class="" onclick="compareElem(this);" id="1" width="70"></td>
+      <td class="" onclick="compareElem(this);" id="2" width="70"></td>
+      <td class="" onclick="compareElem(this);" id="3" width="70"></td>
+    </tr>
+    <tr>
+        <td class="" onclick="compareElem(this);" id="4" height="125"></td>
+        <td class="" onclick="compareElem(this);" id="5"></td>
+        <td class="" onclick="compareElem(this);" id="6"></td>
+        <td class="" onclick="compareElem(this);" id="7"></td>
+    </tr>
+    <tr>
+        <td class="" onclick="compareElem(this);"  id="8" height="125"></td>
+      	  <td class=""  onclick="compareElem(this);" id="9"></td>
+        <td class="" onclick="compareElem(this);" id="10"></td>
+        <td class="" onclick="compareElem(this);" id="11"></td>
+    </tr>
+    <tr>
+        <td class="" onclick="compareElem(this);" id="12" height="125"></td>
+        <td class="" onclick="compareElem(this);" id="13"></td>
+        <td class="" onclick="compareElem(this);" id="14"></td>
+        <td class="" onclick="compareElem(this);" id="15"></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+
+//<![CDATA[
+
+
+
+var nums = new Array();
+for(var i = 1; i <=20; i++){nums[i] = i;}
+var operands = new Array("+","-","/","*");
+var qAndA = new Array();
+var boardQAndA = new Array();
+boardQAndA = qAndA;
+
+
+var questions = new Array();
+var answers = new Array();
+var play = false;
+
+	
+		 /*create random math problem from arrays place into the array q and A		
+				***must be length of board board spots is 8 array length must be 7*/
+				
+function fillQAndA(){		
+		var count = 0;
+		var arraySpot = 0;
+		while(count <=15){
+			
+		
+			/* **get 2  random numbers from array ranNum1,ranNum2 */
+			
+			var ranNum1 = Math.floor(Math.random() * nums.length);
+			var ranNum2 = Math.floor(Math.random() * nums.length);
+			
+			
+			/* **get and operator */ 
+			
+			var whichOperator = Math.floor(Math.random() * operands.length);
+			var operator = operands[whichOperator];
+			
+			
+				if (operator == '+') /* creates correct problems for operand */
+					{
+						
+						var answer = ranNum1 + ranNum2;
+						answer = answer.toFixed(1);
+						qAndA[count] = ranNum1+ ' + ' +ranNum2;
+						questions[arraySpot] = ranNum1+ ' + ' +ranNum2;
+						answers[arraySpot]= answer;
+						qAndA[count+1] = answer;
+						count = count+2;
+						arraySpot++;
+					}
+					
+				else if (operator == '-')
+					{
+						
+						var answer = ranNum1 - ranNum2;
+						answer = answer.toFixed(1);
+						qAndA[count] = ranNum1+ ' - ' +ranNum2;
+						questions[arraySpot] = ranNum1+ ' - ' +ranNum2;
+						answers[arraySpot]= answer;
+						qAndA[count+1] = answer;
+						count = count+2;
+						arraySpot++;
+					}
+				
+				else if (operator == '*')
+					{
+						
+						var answer = ranNum1 * ranNum2;
+						answer = answer.toFixed(1);
+						qAndA[count] = ranNum1+ ' * ' +ranNum2;
+						questions[arraySpot] = ranNum1+ ' * ' +ranNum2;
+						answers[arraySpot]= answer;
+						qAndA[count+1] = answer;	
+						count = count+2;
+						arraySpot++;
+					}
+					
+				else if (operator == '/')
+					{
+						var answer = ranNum1 / ranNum2;
+						answer = answer.toFixed(1);
+						qAndA[count] = ranNum1+ ' / ' +ranNum2;
+						questions[arraySpot] = ranNum1+ ' / ' +ranNum2;
+						answers[arraySpot]= answer;
+						qAndA[count+1] = answer;
+						count = count+2;
+						arraySpot++;
+					}
+				else
+					{
+						window.alert("Error in Operand");
+					}
+				}
+}/*end fillQandA*/
+
+
+/*fill the board randomly*/
+function fillTable()
+{
+	if(play == false){
+	var boxNum = 0;
+	while(boxNum <= 15){
+		var num = Math.floor(Math.random() * boardQAndA.length);
+		var ranQuestionOrAnswer = boardQAndA[num];	
+		var questionOrAnswer = document.createTextNode(ranQuestionOrAnswer);
+		var box = document.getElementById(''+boxNum);
+        var para = document.createElement('p');
+		var numpara = box.appendChild(para);
+        numpara.appendChild(questionOrAnswer);
+		boardQAndA.splice(num,1);
+		boxNum++;
+		}
+    alert("Boxes are now Filled!, BEGIN MATCHING!");
+    play = true;
+    }
+    else {
+        alert("Boxes are already full..derp!");
+         }
+    
+}/*end fillBoard*/
+
+
+
+
+/* begin check elements */
+
+var matched = document.getElementsByClassName('matched');
+var clickedElem;
+var clickCount = 0;
+var fullCounter = 0;
+var elem1 = null;
+var elem2 = null;
+var element1 = null;
+var element2 = null;
+var equivNum = -1;
+var equivNum2 = -2
+var number = -3;
+var number2 = -4;
+
+
+
+/*changes the apperence of the clicked on object*/
+function clickedOn(c)
+{
+if(play == true && $(c).hasClass('')){
+	
+clickedElem = c;
+c.setAttribute('id', 'marked');
+c.firstChild.setAttribute('id', 'marked');
+
+
+clickCount = clickCount+1;
+
+	if (clickCount < 2)
+		{
+		elem1=c.firstChild.innerHTML;
+		element1 = c;
+		}
+	
+	else if (clickCount == 2){
+		elem2=c.firstChild.innerHTML;
+		element2 = c;
+		setTimeout('checkElements()',1300);
+		 }
+	else if (clickCount > 2)
+	{
+		if($(c).hasClass(''))
+		{
+        c.firstChild.setAttribute('id', 'punmarked');
+		c.setAttribute('id','unmarked');
+		setTimeout('checkElements()',1300);
+		}
+	}
+}
+else
+alert("Click the Play Button to Begin!");
+}
+
+
+ 	
+function checkElements(){
+	var counter = 0;
+	while( counter < 8)
+	{
+  				if (answers[counter] == elem1||answers[counter] == elem2)
+  				{
+  					if(number < 0)
+  					number = counter;
+  					else
+  					equivNum = counter;
+  				
+				}
+  	
+  				if (questions[counter] == elem1||questions[counter] == elem2)
+  				{
+  					if(number2 < 0)
+  					number2 = counter;
+  					else
+  					equivNum2 = counter;
+  					
+				}
+		counter++;
+ 	}	
+
+
+	
+	if (number == number2 || number == equivNum || number2 == equivNum2 || number == equivNum2 || number2 == equivNum)
+	{
+	element1.setAttribute('id', 'marked');
+	element2.setAttribute('id', 'marked'); 
+	element1.setAttribute('class', 'matched');
+	element2.setAttribute('class', 'matched'); 
+	
+	
+	
+	equivNum = -1;
+   equivNum2 = -2
+   number = -3;
+   number2 = -4;
+   
+   clickedElem = null;
+   fullCounter = fullCounter + 2;
+	clickCount = 0;
+	}
+	
+	else{
+	element1.setAttribute('id', 'unmarked');
+    element1.firstChild.setAttribute('id','punmarked');
+	element2.setAttribute('id', 'unmarked');
+    element2.firstChild.setAttribute('id','punmarked');
+	
+	equivNum = -1;
+   equivNum2 = -2
+   number = -3;
+   number2 = -4;
+	
+	clickedElem = null;
+	clickCount = 0;
+	}
+	
+	if(fullCounter == 16)
+		win();
+		
+	
+} 
+
+/*click on elements*/
+function compareElem(c){
+	if (clickedElem == c)
+		{
+		alert("Already Clicked On, Choose Another Box");
+		clickCount = clickCount - 1;
+		}
+	if($(c).hasClass('matched'))
+		{
+		alert('Already Matched');
+		}
+	else
+		clickedOn(c);
+}
+
+
+/* win function*/
+function win(){
+	
+	window.alert("YOU WIN!");	
+	
+}/* end win() */
+
+	
+	
+	//]]>
