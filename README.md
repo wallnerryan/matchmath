@@ -1,4 +1,4 @@
-matchmath
-=========
-
-HTML + Javascript (matching game)
+Matching Math Game
+HTML + Javascript
+Author: Ryan Wallner
+ 
